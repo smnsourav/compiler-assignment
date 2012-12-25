@@ -1,0 +1,53 @@
+Summary of classes used in this project
+--------------------------------------------------
+
+1)
+CTextPane extends public class JTextPane
+This is a text component that can be marked up with attributes that are represented graphically. 
+
+2)
+CEditorKit extends public class StyledEditorKit.
+This is the set of things needed by a text component to be a reasonably functioning editor for some type of text document. This implementation provides a default implementation which treats text as colored text and provides a minimal set of actions for editing styled text.  
+
+CEditorKit.getViewFactory()  fetches a factory that is suitable for producing views of models that are produced by this kit.
+
+3)
+CViewFactory implements public interface ViewFactory
+This is a factory to create a view of the document subject. This is intended to enable color mapping over a document model.
+
+4)
+CView extends public class PlainView
+The view represents each child element as a line of text.
+
+5)
+TextEditor implements the basic features of an editor like new, open, save, save as.
+ 
+
+Features implemented in project
+--------------------------------------------------------
+-open a file using JFileChooser
+-open a new file
+-save a file
+-save a copy of a file
+
+Syntax coloring-
+
+1) keywords of 2 types
+	-control flow keywords(red)
+	-other keywords(green)
+2) comments(blue)
+	-//single line comments
+	-/**/ does not support multiline for now as PlainView represents each child as a line of text.
+3) strings(pink)
+	-enclosed within ""
+4) preprocessor directives
+	-starting with # (purple) may be followed by <> giving filename(pink)
+
+
+Scope for implementing new features
+-----------------------------------------------------------
+-support for multiline comments. A class that supports multiline elemants should be used.
+-an automatic end brace for a startbrace and caret positioning in the centre of this brace pair.
+-hot key for auto indentation.
+-a more efficinet implementation for the same using JFlex or someething similar.
+
