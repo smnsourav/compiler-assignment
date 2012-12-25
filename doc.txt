@@ -26,11 +26,11 @@ TextEditor implements the basic features of an editor like new, open, save, save
 
 Features implemented in project
 --------------------------------------------------------
--open a file using JFileChooser
--open a new file
--save a file
--save a copy of a file
--automatic closing of {,[,(," and caret positioning in the centre of the respective pair.
+- open a file using JFileChooser
+- open a new file
+- save a file
+- save a copy of a file
+- automatic closing of {,[,(," and caret positioning in the centre of the respective pair.
 
 Syntax coloring-
 
@@ -48,8 +48,8 @@ Syntax coloring-
 
 Scope for implementing new features
 -----------------------------------------------------------
--support for coloring of multiline comments and macros. A class that supports multiline elemants should be used instead of PlainView.
--hot key for auto indentation.
--hot key for code blocks eg for loop, while loop and similar constructs.
--a more efficinet implementation for the same using JFlex or someething similar.
+- support for coloring of multiline comments and macros. A class that supports multiline elemants should be used instead of PlainView.
+- hot key for auto indentation.
+- hot key for code blocks eg for loop, while loop and similar constructs.
+- a more efficinet implementation for the same using JFlex or something similar.
 
