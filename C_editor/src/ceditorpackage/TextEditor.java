@@ -10,6 +10,8 @@ import javax.swing.*;
 
 import javax.swing.text.*;
 
+//import m.KeyBindingExample.EnterAction;
+
 
 
 
@@ -27,22 +29,92 @@ public class TextEditor extends JFrame{
 	
 	//private StyledDocument style = new DefaultStyledDocument();
 	
-	private CTextPane area = new CTextPane();
+	private static CTextPane area = new CTextPane();
 	
-
+	private static Action enterAction = new EnterAction();
+	private static Action parenthesisAction = new ParenthesisAction();
+	private static Action sqBracAction = new SqBracAction();
+	private static Action quotesAction = new QuotesAction();
 	private JFileChooser dialog = new JFileChooser(System.getProperty("user.dir"));
 
 	private String currentFile = "Untitled";
 
 	private boolean changed = false;
-
-
-	public TextEditor() {
+	
+    static class EnterAction extends AbstractAction
+    {
+        public void actionPerformed( ActionEvent tf )
+        {
+            
+            area.replaceSelection("}"); 
+            area.setCaretPosition(area.getCaretPosition()-1);
+            
+             
+        } // end method actionPerformed()
+         
+    } // end class EnterAction
+    
+    static class ParenthesisAction extends AbstractAction
+    {
+        public void actionPerformed( ActionEvent tf )
+        {
+            
+            area.replaceSelection(")"); 
+            area.setCaretPosition(area.getCaretPosition()-1);
+            
+             
+        } // end method actionPerformed()
+         
+    } // end class EnterAction
+    static class SqBracAction extends AbstractAction
+    {
+        public void actionPerformed( ActionEvent tf )
+        {
+            
+            area.replaceSelection("]"); 
+            area.setCaretPosition(area.getCaretPosition()-1);
+            
+             
+        } // end method actionPerformed()
+         
+    } // end class EnterAction
+    static class QuotesAction extends AbstractAction
+    {
+        public void actionPerformed( ActionEvent tf )
+        {
+            
+            area.replaceSelection("\""); 
+            area.setCaretPosition(area.getCaretPosition()-1);
+            
+             
+        } // end method actionPerformed()
+         
+    } // end class EnterAction
+    public TextEditor() {
+    	
 		area.setEditable(true);
-		//area.setFont(new Font("Monospaced",Font.PLAIN,12));
+		
 		Font font = new Font("Consolas", Font.BOLD, 12);
-        
         area.setFont(font);
+        
+        
+        area.getInputMap().put( KeyStroke.getKeyStroke(91, InputEvent.SHIFT_MASK),
+        "doEnterAction" );
+        area.getActionMap().put( "doEnterAction", enterAction );
+
+        area.getInputMap().put( KeyStroke.getKeyStroke(91, 0),
+        "doSquareBracketAction" );
+        area.getActionMap().put( "doSquareBracketAction", sqBracAction );
+        
+        area.getInputMap().put( KeyStroke.getKeyStroke(57, InputEvent.SHIFT_MASK),
+        "doParenthesisAction" );
+        area.getActionMap().put( "doParenthesisAction", parenthesisAction );
+      
+        area.getInputMap().put( KeyStroke.getKeyStroke(222, InputEvent.SHIFT_MASK),
+        "doQuotesAction" );
+        area.getActionMap().put( "doQuotesAction", quotesAction );
+      
+    
 		JScrollPane scroll = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setPreferredSize(new Dimension(600, 400));
         scroll.setMinimumSize(new Dimension(100, 100));
@@ -127,11 +199,13 @@ public class TextEditor extends JFrame{
 
 	}
 
+	
+	
 
 	private KeyListener k1 = new KeyAdapter() {
 
 		public void keyPressed(KeyEvent e) {
-
+			//trace("DOWN -> Code: " + e.getCode() + "\tACSII: " + e.getAscii() + "\tKey: " + chr(Key.getAscii()));
 			changed = true;
 
 			Save.setEnabled(true);
@@ -315,8 +389,5 @@ reader.close();
 		}
 
 	}
-
-
-
 
 }
